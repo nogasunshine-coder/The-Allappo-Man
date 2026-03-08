@@ -404,6 +404,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
   <div class="score-panel" id="scorePanel">
     <div style="font-size:0.95rem;opacity:0.85;margin-bottom:4px">Final Score</div>
     <div class="score-big" id="scoreBig">—</div>
+    <div style="font-size:1rem;opacity:0.7;margin-top:-6px;margin-bottom:4px">/ 100</div>
     <div class="score-label" id="scoreLabel"></div>
     <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
     <div class="score-breakdown" id="scoreBreakdown"></div>
@@ -666,14 +667,14 @@ function renderResults() {
   const panel=document.getElementById('scorePanel'); panel.classList.add('show');
   const total = Object.values(scores).reduce((a,b)=>a+b,0);
   const pct = Math.round(total/MAX_TOTAL*100);
-  document.getElementById('scoreBig').textContent=`${total}/${MAX_TOTAL}`;
+  document.getElementById('scoreBig').textContent=`${pct}`;
   document.getElementById('progressFill').style.width=pct+'%';
   let grade='';
   if(pct>=90) grade='🌟 Excellent!';
   else if(pct>=75) grade='👍 Very Good!';
   else if(pct>=60) grade='🙂 Good – keep practicing!';
   else grade='📚 Keep trying!';
-  document.getElementById('scoreLabel').textContent=`${pct}% – ${grade}`;
+  document.getElementById('scoreLabel').textContent=`out of 100 – ${grade}`;
 
   const bd=document.getElementById('scoreBreakdown');
   bd.innerHTML=`
@@ -717,8 +718,8 @@ function showScreenshotView() {
         <div style="font-size:0.9rem;opacity:0.8;margin-bottom:4px">Student</div>
         <div style="font-size:1.5rem;font-weight:800;margin-bottom:16px">${name}</div>
         <div style="font-size:0.9rem;opacity:0.8;margin-bottom:4px">Final Score</div>
-        <div style="font-size:3.5rem;font-weight:800;font-family:'Playfair Display',serif;line-height:1">${total}/${MAX_TOTAL}</div>
-        <div style="font-size:1.1rem;margin-top:6px;opacity:0.9">${pct}% · ${grade}</div>
+        <div style="font-size:3.5rem;font-weight:800;font-family:'Playfair Display',serif;line-height:1">${pct}<span style="font-size:1.5rem;opacity:0.7">/100</span></div>
+        <div style="font-size:1.1rem;margin-top:6px;opacity:0.9">${grade}</div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px">
           <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:6px 12px;font-size:0.82rem">Match: ${scores.vocab}/5</div>
           <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:6px 12px;font-size:0.82rem">Fill: ${scores.fill}/5</div>
